@@ -11,11 +11,11 @@ on:
         description: 'Which suite to run'
         required: true
         type: choice
-        default: smoke
+        default: sanity
         options:
-          - smoke
-          - full
-          - accessibility
+          - sanity
+          - All tests including a11y
+          - a11y
 
 jobs:
   e2e:
@@ -35,22 +35,22 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run smoke tests
-        if: github.event.inputs.suite == 'smoke'
-        run: npx playwright test --grep @smoke
+      - name: Run sanity tests
+        if: github.event.inputs.suite == 'sanity'
+        run: npx playwright test --grep @sanity
 
-      - name: Run accessibility tests
-        if: github.event.inputs.suite == 'accessibility'
+      - name: Run a11y tests
+        if: github.event.inputs.suite == 'a11y'
         run: npx playwright test login-accessibility
 
       - name: Run full suite (manual)
-        if: github.event.inputs.suite == 'full'
+        if: github.event.inputs.suite == 'All tests including a11y'
         run: npx playwright test
 
       # Automatic push/PR runs skip @a11y - it documents 2 known, unfixed app
       # defects on purpose, which would otherwise turn every CI run red.
-      # Run it explicitly via workflow_dispatch (full or accessibility).
-      - name: Run suite (push/PR, excludes accessibility)
+      # Run it explicitly via workflow_dispatch ('All tests including a11y' or 'a11y').
+      - name: Run suite (push/PR, excludes a11y)
         if: github.event.inputs.suite == ''
         run: npx playwright test --grep-invert @a11y
 

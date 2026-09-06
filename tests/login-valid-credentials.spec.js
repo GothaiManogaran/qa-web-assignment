@@ -6,10 +6,13 @@ import { VALID_USERS } from './fixtures/users.js';
 test.describe('Login - valid credentials', () => {
 
   // One isolated test per valid user: login, validate session, then logout.
-  // Tagged @smoke - the core flow, proven for every real user, fast enough
-  // to run on every push (see login-invalid-credentials for the rejection half).
+  // Only the first user is tagged @sanity - the login logic is one generic
+  // match over the user list, not per-user code paths, so one representative
+  // user is enough to prove the mechanism isn't broken. The rest still run
+  // in the full suite (see login-invalid-credentials for the rejection half).
   for (const user of VALID_USERS) {
-    test(`logs in and out as ${user.email}`, { tag: '@smoke' }, async ({ page }) => {
+    const tag = user === VALID_USERS[0] ? '@sanity' : undefined;
+    test(`logs in and out as ${user.email}`, { tag }, async ({ page }) => {
       const loginPage = new LoginPage(page);
       const homePage = new HomePage(page);
 

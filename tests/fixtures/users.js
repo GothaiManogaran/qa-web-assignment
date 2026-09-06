@@ -15,7 +15,7 @@ export const UNKNOWN_CREDENTIALS = { email: 'notreal@user.com', password: 'wrong
 // App.vue's logIn() does a strict === match, no .trim(), no case folding -
 // so whitespace/case variants of valid credentials are expected to fail too.
 export const INVALID_LOGIN_SCENARIOS = [
-  { description: 'a wrong password is used with a valid email', email: admin.email, password: 'wrongpass', smoke: true },
+  { description: 'a wrong password is used with a valid email', email: admin.email, password: 'wrongpass', sanity: true },
   { description: 'an unregistered email is used with a valid password', email: 'notreal@user.com', password: admin.password },
   { description: 'both the email and password are wrong', ...UNKNOWN_CREDENTIALS },
   { description: 'the email is left empty', email: '', password: admin.password },
