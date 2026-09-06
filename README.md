@@ -2,6 +2,8 @@
 We are looking for Automation Engineers that have the mindset "only the sky is the limit"
 and "automation doesn't stop at testing, it's just a beginning!" ;)
 
+> **Solution:** see [TESTING.md](TESTING.md) for the test suite documentation - how to install and run it, test approach, architecture, full scenario/bug list, and assumptions.
+
 ## Purpose
 The purpose of this test assignment is to assess the applicant's automation skills, allowing him/her to show the best they can do and how fast they can learn.
 

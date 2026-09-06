@@ -59,3 +59,7 @@ public/
 - **CSS**: Custom styling with responsive design
 - **LocalStorage**: Session persistence
 
+## Testing
+
+Automated login tests (Playwright), how to run them, and full test documentation: see [TESTING.md](TESTING.md).
+

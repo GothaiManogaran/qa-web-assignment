@@ -29,9 +29,9 @@ test.describe('Login - valid credentials', () => {
       });
 
       await test.step('Assert: the logged-in navigation is now visible', async () => {
-        await expect(homePage.menu.getByText('Home')).toBeVisible();
-        await expect(homePage.menu.getByText('Products')).toBeVisible();
-        await expect(homePage.menu.getByText('Contact')).toBeVisible();
+        await expect(homePage.homeMenuItem).toBeVisible();
+        await expect(homePage.productsMenuItem).toBeVisible();
+        await expect(homePage.contactMenuItem).toBeVisible();
       });
 
       await test.step('Assert: the session was persisted correctly', async () => {

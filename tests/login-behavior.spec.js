@@ -75,4 +75,20 @@ test.describe('Login - behavior', () => {
     await expect(loginPage.passwordInput).toHaveValue('');
   });
 
+  // README-Vue.md advertises this as "Dropdown menu for signing out", but
+  // `.logout` never gets the `.active` class its own CSS requires to show
+  // (display: none by default) - clicking the user icon mounts it in the DOM
+  // without ever making it visible. Documents the defect rather than hiding it.
+  test('clicking the user icon opens a visible sign-out dropdown', { tag: '@known-issue' }, async ({ page }) => {
+    const loginPage = new LoginPage(page);
+    const homePage = new HomePage(page);
+    const user = VALID_USERS[0];
+
+    await loginPage.goto();
+    await loginPage.login(user.email, user.password);
+
+    await homePage.userIcon.click();
+    await expect(homePage.logoutDropdown).toBeVisible();
+  });
+
 });
