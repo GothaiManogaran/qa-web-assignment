@@ -13,6 +13,11 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    // Excludes accessibility: WebKit skips buttons in the default Tab order
+    // (no Full Keyboard Access), which isn't an app/Playwright bug but does
+    // fail the keyboard-navigation test - see TESTING.md Assumptions.
+    { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: '**/login-accessibility.spec.js' },
   ],
   webServer: {
     command: 'npm run dev',

@@ -14,7 +14,7 @@ on:
         default: sanity
         options:
           - sanity
-          - All tests including a11y
+          - full
           - a11y
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run sanity tests
         if: github.event.inputs.suite == 'sanity'
@@ -43,15 +43,10 @@ jobs:
         if: github.event.inputs.suite == 'a11y'
         run: npx playwright test login-accessibility
 
-      - name: Run full suite (manual)
-        if: github.event.inputs.suite == 'All tests including a11y'
-        run: npx playwright test
-
-      # Automatic push/PR runs skip @a11y - it documents 2 known, unfixed app
-      # defects on purpose, which would otherwise turn every CI run red.
-      # Run it explicitly via workflow_dispatch ('All tests including a11y' or 'a11y').
-      - name: Run suite (push/PR, excludes a11y)
-        if: github.event.inputs.suite == ''
+      # Excludes @a11y - it documents 2 known, unfixed app defects on purpose,
+      # which would otherwise turn every run red. Run it via the 'a11y' option.
+      - name: Run full suite (excludes a11y)
+        if: github.event.inputs.suite == 'full' || github.event.inputs.suite == ''
         run: npx playwright test --grep-invert @a11y
 
       - name: Upload Playwright report

@@ -7,9 +7,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --grep-invert @a11y",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:sanity": "playwright test --grep @sanity"
+    "test:e2e:sanity": "playwright test --grep @sanity",
+    "test:e2e:a11y": "playwright test login-accessibility"
   },
   "dependencies": {
     "vue": "^3.3.4"
