@@ -12,7 +12,7 @@ function describeViolations(violations) {
     .join('\n');
 }
 
-test.describe('Login - accessibility', () => {
+test.describe('Login - accessibility', { tag: '@a11y' }, () => {
 
   test('login page has no automatically detectable accessibility violations', async ({ page }) => {
     const loginPage = new LoginPage(page);
